@@ -9,7 +9,6 @@ export const SignUp = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   let history = useHistory();
 
-
   const handleValueChange = (e, inputFieldName = "") => {
     if (inputFieldName === "firstname") {
       setFirstname(e.target.value);
@@ -28,21 +27,21 @@ export const SignUp = () => {
   const onFormSubmit = (e) => {
     e.preventDefault();
     let data = {
-      email:email,
+      email: email,
       first_name: firstName,
       last_name: lastName,
       phone: phoneNumber,
     };
     console.log("checking the data", data);
-    let header = {'authorization' : 'ssssdsadsdsadasdasd'}
+    let header = { authorization: "ssssdsadsdsadasdasd" };
     axios
-      .post("http://localhost:8000/signup", data , header)
+      .post("http://localhost:8000/signup", data, header)
       .then((res) => {
         console.log("checking res of submitter data", res);
         if (res.data.message) {
-          alert("User aleardy exist with this email")
-        }else{
-          history.push('/')
+          alert("User aleardy exist with this email");
+        } else {
+          history.push("/");
           setFirstname("");
           setLastName("");
           setPhoneNumber("");
