@@ -41,9 +41,25 @@ const createNewUser = async (req, res) => {
 
 const getUser = (req, res) => {
   if (req && req.body) {
-    User.findAll({ where: { email: req.body.email } }).then((result) => {
-      return res.send(result);
-    });
+    models.users
+      .findAll({ where: { email: req.body.email }, raw: true, })
+      .then((result) => {
+        // decrypt password
+        bcrypt.compare(req.body.password, result[0].password, function (err, response) {
+          if(err) {
+            res.send(err)
+          }
+          if(response) {
+            result[0].password = null
+            return res.status(200).json(result[0])
+          } else {
+            let message = "Invalid user name or password"
+            return res.send(message)
+          }
+        });
+       
+       ;
+      });
   }
 };
 
