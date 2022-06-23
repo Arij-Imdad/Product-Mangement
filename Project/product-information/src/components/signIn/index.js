@@ -22,12 +22,10 @@ const SingIn = () => {
       email: email,
       password: password,
     };
-    console.log("checking the data", data);
     let header = { authorization: "ssssdsadsdsadasdasd" };
     axios
       .post("http://localhost:8000/login", data, header)
       .then((res) => {
-        console.log("checking res of submitted data", res);
         if (res.data.message === 'incorrect email or password') {
           alert('incorrect email or password')
         }else{
